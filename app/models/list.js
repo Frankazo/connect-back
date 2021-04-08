@@ -1,11 +1,15 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema({
+// item is a subdocument for list, each item contains a specific link
+const item = require('./item')
+
+
+const listSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  text: {
+  customURL: {
     type: String,
     required: true
   },
@@ -13,9 +17,10 @@ const exampleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  items: [ item.schema ]
 }, {
   timestamps: true
 })
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('List', listSchema)
