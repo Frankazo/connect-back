@@ -45,7 +45,7 @@ router.get('/items/:lid', requireToken, (req, res, next) => {
 // POST /items/listID
 router.post('/items/:lid', requireToken, (req, res, next) => {
   // set owner of new items to be current user
-  req.body.items.owner = req.user.id
+  req.body.item.owner = req.user.id
 
   List.findById(req.params.lid)
     .then(parent => {
@@ -66,7 +66,7 @@ router.post('/items/:lid', requireToken, (req, res, next) => {
 router.patch('/items/:lid/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.items.owner
+  delete req.body.item.owner
 
   List.findById(req.params.lid)
     .then(handle404)
