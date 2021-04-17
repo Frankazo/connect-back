@@ -11,6 +11,7 @@ const userRoutes = require('./app/routes/user_routes')
 // require middleware
 const errorHandler = require('./lib/error_handler')
 const requestLogger = require('./lib/request_logger')
+const replaceToken = require('./lib/replace_token')
 
 // require database configuration logic
 // `db` will be the actual Mongo URI as a string
@@ -43,6 +44,8 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${clientDe
 // define port for API to run on
 const port = process.env.PORT || serverDevPort
 
+
+app.use(replaceToken)
 // register passport authentication middleware
 app.use(auth)
 
